@@ -1,0 +1,105 @@
+<html>
+	<head>
+		<title>Om Puter</title>		
+		<script src="jquery-3.6.0.min.js"></script>
+	</head>
+	<body>
+		
+		<p>Device saat ini: <span id="dsi"></span></p>
+		<video id="webcamVideo" width="720" height="480" style="border: 1px black solid;" autoplay></video>
+		<canvas id="webcamCanvas" width="720" height="480" style="border: 1px black solid; display: none;"></canvas>
+		
+		<br>
+		
+		<button onclick="startCamera();">Mulai Kamera</button>
+		<button onclick="gantiKamera();">Ganti Kamera</button>
+		<button onclick="ambilGambar();">Ambil Gambar</button>
+		<button onclick="gantiModeKamera()">Ganti Mode Kamera</button>
+		
+		<script>
+			
+			var infourl = new URLSearchParams(window.location.search);
+			
+			var devicesaya = [];
+			var devicesaatini = 0;
+			
+			var fm = "user";
+			
+			if(infourl.get("modekamera") == "belakang"){
+				fm = { "exact" : "environment" };
+			}
+			
+			var wVideo = document.querySelector("#webcamVideo");
+			var wCanvas = document.querySelector("#webcamCanvas");
+			
+			
+			
+			//nge list device-device video
+			navigator.mediaDevices.enumerateDevices().then(function(devices){
+				devices.forEach(function(device){
+					if(device.kind == "videoinput"){
+						devicesaya.push({
+							"id" : device.deviceId,
+							"label" : device.label,
+						});
+					}
+				});
+			});
+			
+			setTimeout(function(){
+				$("#dsi").html(devicesaya[devicesaatini].label);
+			},1000);
+			
+			
+			async function startCamera(){
+				var stream = null;
+				try{
+					
+					stream = await navigator.mediaDevices.getUserMedia({ video : { 
+						deviceId : devicesaya[devicesaatini].id, 
+						facingMode : fm ,
+					}, audio : false });
+					
+					
+				}catch(error){
+					//console.log(error);
+					//alert("Perangkat ini tidak dilengkapi kamera belakang.");
+				}
+				
+				wVideo.srcObject = stream;
+			}
+			
+			function ambilGambar(){
+				wCanvas.getContext("2d").drawImage(wVideo, 0, 0, 720, 480);
+				var imageData = wCanvas.toDataURL("image/jpg");
+				console.log(imageData);
+				
+				toggleCanvasVideo();
+			}
+			
+			function gantiModeKamera(){
+				if(infourl.get("modekamera") == "belakang"){
+					location.href = location.href.split('?')[0];
+				}else{
+					location.href = location.href + "?modekamera=belakang";
+				}
+			}
+			
+			function toggleCanvasVideo(){
+				$("#webcamVideo").toggle();
+				$("#webcamCanvas").toggle();
+			}
+			
+			function gantiKamera(){
+				if(devicesaatini < devicesaya.length-1)
+					devicesaatini++;
+				else
+					devicesaatini = 0
+				
+				$("#dsi").html(devicesaya[devicesaatini].label);
+				startCamera();
+			}
+			
+		</script>
+	</body>
+</html>

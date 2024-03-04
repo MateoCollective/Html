@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <h1>Suwit jawa</h1>
+
+    <script>
+
+//Menangkap pilihan player
+       {
+       var p = prompt("Silahkan pilih gajah, semut, manusia");
+       
+       }
+     //Menangkap pilihan computer
+     //Membangkitkan bilangan computer
+     let comp = Math.random();
+     
+     if(comp < 0.15) {
+         comp ="gajah"
+         comp = "Gajah";
+        } else if(comp >= 0.34 && comp < 0.44){
+            comp ="Semut"
+            comp ="semut";
+        }else {
+            comp ="Manusia"
+            comp ="manusia";
+        }
+        
+        
+         
+       //Menentukan rules
+       
+       if (p == comp){
+           alert("Hasilnya seri")
+       } else if(p == "gajah", "Gajah"){
+          hasill = (comp == "manusia") ? "anda menang" : "anda kalah";
+       }  else if(p == "manusia", "Manusia") {
+           hasill = ( comp = "semut") ? "anda menang" : "anda kalah";
+           }  else if(p == "semut", "Semut") {
+               hasill = ( comp = "manusia") ? "anda menang" : "anda kalah";
+           } else {
+               hasill = ( comp = "Sepertinya "+ p + " tidak ada di daftar");
+           }
+               var p = alert(hasill);
+           
+     console.log(comp);
+     
+     
+       
+    </script>
+
+</body>
+</html>
+```

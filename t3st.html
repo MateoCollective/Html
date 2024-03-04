@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<body>
+ <p>Built in function string</p>
+<p id="demo"></p>
+
+<script>
+//charAt mencari karakter dimulai dari angka nol 
+let nama = "rizki";
+let rrr = nama.charAt(4);
+document.getElementById("demo").innerHTML=
+rrr;
+console.log(rrr);
+
+
+//Dapatkan karakter terakhir dlm sebuah string (Mengembalikan Unicode karakter pada indeks tertentu)
+let text = "Hello world";
+let code = text.charCodeAt(text.length-1);
+console.log(code);
+document.getElementById("demo").innerHTML = code;
+
+
+//concat fungsinya untuk membuat menjadi satu baris
+let text1 = "Hello";
+let text2 = "world!";
+let text3 = "Have a nice day!";
+let result = text1.concat(" ", text2, " ", text3);
+console.log(result);
+document.getElementById("demo").innerHTML = result;
+
+
+</script>
+</body>
+</html>
